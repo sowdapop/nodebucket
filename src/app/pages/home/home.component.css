@@ -1,0 +1,39 @@
+.main-welcome {
+  margin-top: 30px;
+}
+
+.title {
+  text-align: center;
+  font-weight: lighter;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+}
+
+.task-container {
+  width: 35%;
+  margin: 0 auto;
+}
+
+.task-column {
+  border: 2px solid gray;
+  min-height: 68px;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  display: block;
+}
+
+.task-card {
+  cursor: move;
+  padding: 20px 10px;
+  border-bottom: 2px solid gray;
+  min-height: 68px;
+  height: 68px;
+  font-size: 14px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+}
