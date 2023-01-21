@@ -1,0 +1,6 @@
+
+{
+    "dbConn": "mongodb+srv://nodebucket_user:water@cluster0.nggdv1t.mongodb.net/nodebucket?retryWrites=true&w=majority",
+    "serverError": "Internal Server Error",
+    "mongoServerError": "MongoDB Server Error"
+}
