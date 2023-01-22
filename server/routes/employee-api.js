@@ -156,7 +156,7 @@ router.get('/:empId/tasks', async(req,res) => {
 //createTask
 router.post('/:empId/tasks', async(req, res) => {
   try {
-    Employee.findOne({'empId': req.params.empId}, function(err,emp) {
+    Employee.findOne({'empId': req.params.empId}, function(err, emp) {
       if (err) {
         console.log(err);
         res.status(501).send({
@@ -166,10 +166,8 @@ router.post('/:empId/tasks', async(req, res) => {
 
         console.log(emp);
 
-        if (emp) {
-          const newTask = {
+            const newTask = {
             text: req.body.text
-          }
         }
         
         emp.todo.push(newTask);
