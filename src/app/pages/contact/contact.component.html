@@ -7,51 +7,59 @@
 // https://github.com/buwebdev/web-450
 -->
 
+<!--Main div for contact info-->
+<div fxLayout="column" class="main-welcome">
 
-<div fxLayout="row wrap">
+  <!--Page header-->
   <div fxFlex>
-    <mat-card class="mat-elevation-z0">
-      <mat-card-title class="card-title-icon">
-        <mat-icon color="primary">navigation</mat-icon>
-      </mat-card-title>
-
-      <br />
-
-      <mat-card-content class="align-center">
-        <p>
-          123 First Street
-        </p>
-        <p>
-          Atlanta, Georgia
-        </p>
-      </mat-card-content>
-    </mat-card>
+    <h1 class="title">
+      <strong>Please reach out to us with any questions or comments.</strong> <br />
+    </h1>
   </div>
 
+  <!--Address info-->
   <div fxFlex>
-    <mat-card class="mat-elevation-z0">
-      <mat-card-title class="card-title-icon">
-        <mat-icon color="primary">phone</mat-icon>
-      </mat-card-title>
+    <div fxLayout="row" fxLayoutGap="25px" class="task-container" >
+    
+      <!--Address column-->
+      <div fxFlex>
+        <mat-card class="mat-elevation-z4">
 
-      <br />
+          <mat-card-title>
+          <mat-icon color="primary">navigation</mat-icon>
+        </mat-card-title>
+          <mat-card-content>
+            <!--Drag and drop functionality for To Do list-->
+            <div fxLayout="column"
+            fxLayoutGap="10px"
+            class="task-column">
 
-      <mat-card-content class="align-center">
-        <p>
-          Direct: 555-555-1234
-        </p>
-        <p>
-          Toll Free: 1-800-555-1234
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div>
+            123 First Street <br />
+            Atlanta, Georgia
 
-<br /><br /><br /><br />
+          </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
 
-<div fxLayout="column">
-  <p style="text-align: center">
-    Visit us online or at one of our many locations throughout Georgia.
-  </p>
-</div>
+  <!--Telephone info-->
+  <div fxFlex>
+    <div fxLayout="row" fxLayoutGap="25px" class="task-container" >
+        <mat-card class="mat-elevation-z4">
+
+          <mat-card-title>
+          <mat-icon color="primary">phone</mat-icon>
+        </mat-card-title>
+          <mat-card-content>
+            <!--Drag and drop functionality for To Do list-->
+            <div fxLayout="column"
+            fxLayoutGap="10px"
+            class="task-column">
+
+            555-555-1234 <br />
+            1-800-555-1234
+
+          </div>
+          </mat-card-content>
+        </mat-card>
+      </div>

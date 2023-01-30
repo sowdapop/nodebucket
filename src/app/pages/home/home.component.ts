@@ -13,6 +13,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from 'src/app/shared/models/employee.interface';
 import { Item } from 'src/app/shared/models/item.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogData } from '../../shared/models/dialog-data.interface'
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ConfirmDialogComponent } from './../../shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +30,7 @@ export class HomeComponent implements OnInit {
   todo: Item[];
   done: Item[];
   empId: number;
+  dialogData: DialogData;
 
 //Initialize form
 taskForm: FormGroup = this.fb.group({
@@ -33,11 +38,15 @@ taskForm: FormGroup = this.fb.group({
 })
 
 //Functionality of task form
-  constructor(private taskService: TaskService, private cookieService: CookieService, private fb: FormBuilder) {
+  constructor(private taskService: TaskService, private cookieService: CookieService, private fb: FormBuilder,
+              private dialog: MatDialog) {
     this.employee = {} as Employee;
+    this.dialogData = {} as DialogData;
+
     this.todo = [];
     this.done = [];
-    this.empId = parseInt(this.cookieService.get('session.user'), 10);
+
+    this.empId = parseInt(this.cookieService.get('session_user'), 10);
 
     //Call all tasks with promise.
     this.taskService.findAllTasks(this.empId).subscribe({
@@ -61,11 +70,8 @@ taskForm: FormGroup = this.fb.group({
     })
   }
 
-  ngOnInit(): void {
-  }
-
-  //createTask function
-  createTask() {
+   //createTask function
+   createTask() {
     const newTask = this.taskForm.controls['task'].value;
 
     this.taskService.createTask(this.empId, newTask).subscribe({
@@ -88,6 +94,82 @@ taskForm: FormGroup = this.fb.group({
 
         this.taskForm.controls['task'].setErrors({'incorrect': false});
       }
-      })
+    })
+  }
+  
+
+  ngOnInit(): void {
+  }
+
+  //deleteTask function
+  deleteTask(taskId: string) {
+    this.dialogData.header = 'Delete Record Dialog';
+    this.dialogData.content = 'Are you sure you want to delete this task?'
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: this.dialogData,
+      disableClose: true
+    })
+
+    //Functionality for after prompt is closed
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        console.log(result)
+
+        //If the user confirms the deletion, delete the task
+        if (result === 'confirm') {
+          
+          this.taskService.deleteTask(this.empId, taskId).subscribe({
+            next: (res) => {
+              this.employee = res;
+            },
+            error: (e) => {
+              console.log(e);
+            },
+            complete: () => {
+              this.todo = this.employee.todo;
+              this.done = this.employee.done;
+            }
+          })
+        }
+      }
+    })
+  }
+
+  // dragDrop function
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container)  {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      
+      console.log('Item reordered in the same column')
+
+      this.updateTaskList(this.empId, this.todo, this.done);
+    } else {
+
+      console.log('Item moved to the other column')
+
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex)
+
+        this.updateTaskList(this.empId, this.todo, this.done);
     }
   }
+
+  //updateTask for drag/drop function
+  updateTaskList(empId:number, todo: Item[], done: Item[]) {
+    this.taskService.updateTask(empId, todo, done).subscribe({
+      next: (res) => {
+        this.employee = res;
+      },
+      error: (e) => {
+        console.log(e);
+      },
+      complete: () => {
+        this.todo = this.employee.todo;
+        this.done = this.employee.done;
+      }
+    })
+  }
+}

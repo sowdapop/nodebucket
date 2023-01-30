@@ -5,6 +5,8 @@
 .title {
   text-align: center;
   font-weight: lighter;
+  border-bottom: black;
+  border-width: 1px;
 }
 
 .subtitle {
@@ -13,12 +15,12 @@
 }
 
 .task-container {
-  width: 35%;
+  width: 50%;
   margin: 0 auto;
 }
 
 .task-column {
-  border: 2px solid gray;
+  border: 1px solid gray;
   min-height: 68px;
   background-color: white;
   border-radius: 6px;
