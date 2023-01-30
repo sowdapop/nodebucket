@@ -10,16 +10,19 @@
 <div fxLayout="column">
 
   <!-- navigation -->
-  <nav fxFlex>
+  <nav fxFlex color="primary">
     <mat-toolbar>
+      <img src="../assets/Hufflepuff.webp" class="badger">
       <!-- navbar container -->
       <div class="navbar-container">
         <!-- logo -->
-        <img src="../assets/Hufflepuff.webp" height="55" padding="top: 5px;">
-        <button class="logo" routerLink="/" mat-button>nodebucket</button>
+        
+        <button class="logo" routerLink="/" mat-button>Nodebucket <br />
+          <caption style="font-size: small;">Your task management companion</caption>
+        </button>
 
         <button class="navbar-link" routerLink="/" mat-button>Home</button>
-        <button class="navbar-link" mat-button>About</button>
+        <button class="navbar-link" routerLink="/about" mat-button>About</button>
         <button class="navbar-link" routerLink="/contact" mat-button>Contact</button>
 
       </div>
@@ -29,6 +32,7 @@
     </mat-toolbar>
   </nav>
 
+  
   <!-- main content -->
   <div fxFlex>
     <main class="main-content" fxFlex="100%;">

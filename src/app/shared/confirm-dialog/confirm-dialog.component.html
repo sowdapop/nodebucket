@@ -1,0 +1,24 @@
+<!--
+// Title: nodebucket
+// Author: Professor Krasso
+// Date: 27 Jan 2023
+// Modified by: Kayla McDanel
+// Attributions: Code from Bellevue Web Dev GitHub Repository
+// https://github.com/buwebdev/web-450
+-->
+
+<!--Dialog window to confirm task deletion-->
+
+<h2 mat-dialog-title> {{ dialogData.header }} </h2>
+
+<div mat-dialog content>
+    <p> {{ dialogData.content }} </p>
+    <small style="color: red;">WARNING: This action cannot be undone.</small>
+</div>
+
+<mat-divider></mat-divider>
+
+<div mat-dialog-actions align="end">
+    <button mat-raised-button matDialogClose="cancel" color="primary">No thanks</button>
+    <button mat-raised-button matDialogClose="confirm" color="primary" cdkFocusInitial>Confirm</button>
+</div>

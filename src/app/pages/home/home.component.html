@@ -13,7 +13,7 @@
   <!--Page header-->
   <div fxFlex>
     <h1 class="title">
-      Welcome to WEB 450's - nodebucket Project <br />
+      <strong>Welcome to the Web 450 Nodebucket Project</strong> <br />
       <span class="subtitle">
         A to-do list for productive people
       </span>
@@ -29,7 +29,7 @@
 
           <mat-card-content>
             <!--Input field-->
-            <mat-form-field appearance="fill" class="w-100">
+            <mat-form-field appearance="fill" style="width: 100%;">
               <input type="text" matInput name="task" formControlName="task" placeholder="Enter a task name..." />
               <!--Submit button-->
               <button type="submit" [disabled]="!taskForm.valid" mat-icon-button matSuffix>
@@ -65,9 +65,20 @@
         <mat-card class="mat-elevation-z0">
 
           <mat-card-title>To Do</mat-card-title>
+
           <mat-card-content>
-            <div class="task-column">
-              <div *ngFor="let item of todo">
+            <!--Drag and drop functionality for To Do list-->
+            <div fxLayout="column"
+            fxLayoutGap="10px"
+            class="task-column"
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="todo"
+            [cdkDropListConnectedTo]="[doneList]"
+            (cdkDropListDropped)="drop($event)" >
+
+              <div *ngFor="let item of todo" cdkDrag>
+
                 <mat-card class="mat-elevation-z0 task-card">
                   <mat-card-content>
                     <div fxLayout="row">
@@ -78,6 +89,11 @@
                       </div>
 
                       <!--Code to delete task-->
+                      <div fxLayoutAlign="end" style="margin-top: -7px;">
+                        <button mat-icon-button (click)="deleteTask(item._id)">
+                          <mat-icon color="warn">delete</mat-icon>
+                        </button>
+                      </div>
                     </div>
                   </mat-card-content>
                 </mat-card>
@@ -93,8 +109,18 @@
           <mat-card-title>Done</mat-card-title>
 
           <mat-card-content>
-            <div class="task-column">
-              <div *ngFor="let item of done">
+
+            <div fxLayout="column"
+            fxLayoutGap="10px"
+            class="task-column"
+            cdkDropList
+            #doneList="cdkDropList"
+            [cdkDropListData]="done"
+            [cdkDropListConnectedTo]="[todoList]"
+            (cdkDropListDropped)="drop($event)">
+
+              <div *ngFor="let item of done" cdkDrag>
+
                 <mat-card class="mat-elevation-z0 task-card">
                   <div fxLayout="row">
 
@@ -103,6 +129,12 @@
                       {{ item.text }}
                     </div>
                     
+                    <!--Code to delete task-->
+                    <div fxLayoutAlign="end" style="margin-top: -7px;">
+                      <button mat-icon-button (click)="deleteTask(item._id)">
+                        <mat-icon color="warn">delete</mat-icon>
+                      </button>
+                    </div>
                   </div>
                 </mat-card>
               </div>
